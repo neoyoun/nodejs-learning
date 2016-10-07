@@ -1,0 +1,1212 @@
+
+
+<!DOCTYPE HTML><html lang="zh-CN"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><meta name="renderer" content="webkit"/><meta property="qc:admins" content="15317273575564615446375"/><meta property="og:image" content="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon.png"/><meta name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/><meta name="alexaVerifyID" content="LkzCRJ7rPEUwt6fVey2vhxiw1vQ"/><meta name="apple-itunes-app" content="app-id=958101793, app-argument="><title>nodejs爬虫 - 爬虫程序如何处理动态分页？ - SegmentFault</title><meta name="description" content="这里说的动态分页是指使用ajax等技术实现的不改变页面URL，而改变页面内容分页代码如下 {代码...} {代码...} 我使用的是nodejs环境，用cheerio解析请问我该如何获���这些动态页每页的信息呢？谢谢"/><meta name="keywords" content="cheerio,nodejs爬虫"/><link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="SegmentFault"/><link rel="shortcut icon" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/favicon.ico"/><link rel="apple-touch-icon" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon.png"><meta name="msapplication-TileColor" content="#009a61"/><meta name="msapplication-square150x150logo" content="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon.png"/><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新问题" href="/feeds/questions"><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新文章" href="/feeds/blogs"><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/css/global.css"/><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57ecc802/qa/css/qa.css"/><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/css/responsive.css"/><!--[if lt IE 9]><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/css/ie.css"/><script src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/script/html5shiv.js"></script><script src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/script/respond.js"></script><![endif]--><script src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/script/debug.js"></script></head><body data-mod="qa"
+    class="qa-question "><!--[if lt IE 9]><div class="alert alert-danger topframe" role="alert">你的浏览器实在<strong>太太太太太太旧了</strong>，放学别走，升级完浏览器再说 <a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div><![endif]--><img id="icon4weChat" style="height: 0;width: 0;" data-src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon-512.png"><img id="icon4weChat" data-src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon-512.png"><div class="global-nav sf-header"><nav class="container nav"><div class="hidden-sm hidden-lg hidden-md"><div class="sf-header__logo sf-header__logo--response"><h1><a></a></h1></div><div class="dropdown m-menu"><a href="javascript:void(0);" id="dLabel" class="visible-xs-block m-toptools"
+           data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify"></span><span class="mobile-menu__unreadpoint"></span></a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><li class="mobile-menu__item"><a href="/news">头条</a></li><li class="mobile-menu__item"><a href="/questions/newest">问答</a></li><li class="mobile-menu__item"><a href="/blogs">文章</a></li><li class="mobile-menu__item"><a href="/user/note">笔记</a></li><li class="mobile-menu__item"><a href="/jobs">职位</a></li><li class="mobile-menu__item"><a href="/events">活动</a></li><li class="mobile-menu__item"><a href="/tags">标签</a></li><li class="mobile-menu__item"><a href="/users">榜单</a></li><li class="mobile-menu__item"><a href="/sites">子站</a></li></ul></div><a href="/user/login" class="visible-xs-block pull-right m-ask m-toptools"><span
+                    class="glyphicon glyphicon-log-in"></span></a></div><div class="row hidden-xs"><div class="col-sm-9 col-md-7 col-lg-6"><div class="sf-header__logo"><h1><a href="/">SegmentFault</a></h1></div><ul class="menu list-inline pull-left hidden-xs"><li class="menu__item menu__item--new"><a href="/news">头条</a></li><li class="menu__item"><a href="/questions">问答</a></li><li class="menu__item"><a href="/blogs">专栏</a></li><li class="menu__item"><a href="/jobs">职位</a></li><li class="menu__item"><a href="/events">活动</a></li></ul></div><div class="col-sm-3 col-md-5 col-lg-6 text-right"><form action="/search" class="header-search  hidden-sm hidden-xs mr20"><button class="btn btn-link"><span class="sr-only">搜索</span><span class="glyphicon glyphicon-search"></span></button><input id="searchBox" name="q" type="text" placeholder="输入关键字搜索" class="form-control"
+                                   value=""/></form><ul class="opts list-inline hidden-xs"><li class="opts__item message has-unread"><a target="_blank" href="/tour"><span class="sr-only">消息</span><span id="messageCount" class="fa fa-hand-peace-o"></span></a></li><li class="opts__item"><a href="/user/login" class="SFLogin em ml10"
+                                       onClick="_gaq.push(['_trackEvent', 'Button', 'Click', 'Login']);">注册 &middot;
+                                        登录</a></li></ul></div></div></nav></div><div class="global-navTags"><div class="container"><nav class=" nav"><ul class="nav__list"><li class="nav__item"><a href="/"><i class="fa fa-home"></i>home
+                            </a></li><li class="nav__item"><a href="/timeline"><i class="fa fa-list-alt"></i>feed
+                            </a></li><li class="nav__item nav__item--split"><a><span class="split"></span></a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/javascript">javascript</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/php">php</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/python">python</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/java">java</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/mysql">mysql</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/ios">ios</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/android">android</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/node.js">node.js</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/html5">html5</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/linux">linux</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/c%2B%2B">c++</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/css3">css3</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/git">git</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/golang">golang</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/ruby">ruby</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/vim">vim</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/docker">docker</a></li><li class="nav__item tag-nav__item"><a
+                                                                                href="/t/mongodb">mongodb</a></li><li class="nav__item nav__item--more" data-open="0"><a class="nav__item--more-link"
+                                                                               href="/tags"><div class="tag__more"><i class="tag__more--icon"></i><i class="tag__more--icon"></i><i class="tag__more--icon"></i></div></a></li></ul><div class="tag-mgr__box hide"><input class="tag-mgr__query" type="text" placeholder="搜索关注的标签"
+                               data-tags='null'><div class="mCustomScrollbar" data-mcs-theme="minimal-dark"><ul class="tag-mgr__list"></ul></div><a href="/tags" class="btn btn-primary btn-sm tag-mgr__btn">标签管理</a></div></nav></div></div><div class="wrap">
+
+    <div class="post-topheader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <span class="post-topheader__title--icon-symbol">问</span>
+
+                    <div class="post-topheader__info">
+                        <h1 class="h3 post-topheader__info--title" id="questionTitle" data-id="1010000005704139">
+                            <a href="/q/1010000005704139">爬虫程序如何处理动态分页？</a>
+                        </h1>
+
+                        <ul class="taglist--inline inline-block question__title--tag mr10">
+                                                            <li class="tagPopup mb5"><a class="tag" href="/t/cheerio" data-toggle="popover"
+                                                            data-img="" data-placement="top"
+                                                            data-original-title="cheerio"
+                                                            data-id="1040000002648429">cheerio</a></li>
+                                                            <li class="tagPopup mb5"><a class="tag" href="/t/nodejs%E7%88%AC%E8%99%AB" data-toggle="popover"
+                                                            data-img="" data-placement="top"
+                                                            data-original-title="nodejs爬虫"
+                                                            data-id="1040000002423758">nodejs爬虫</a></li>
+                                                    </ul>
+
+                        <div class="question__author">
+                            <a href="/u/zerozaki" class="mr5"><strong>零崎莲实</strong></a>
+                            6月13日提问<span class="hidden-xs">
+                                                    &middot; <a href="/q/1010000005704139/revision">6月13日更新</a>
+                                                                              </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 hidden-xs">
+                    <ul class="post-topheader__side list-unstyled">
+                        <li>
+                                                            <button type="button" id="sideFollow" class="btn btn-success btn-sm"
+                                        data-id="1010000005704139" data-do="follow" data-type="question"
+                                        data-toggle="tooltip" data-placement="right" title="关注后将获得更新提醒">关注
+                                </button>
+                                                        <strong>4</strong> 关注
+                        </li>
+                        <li>
+                                                            <button type="button" id="sideBookmark" class="btn btn-default btn-sm"
+                                        data-id="1010000005704139" data-type="question">收藏
+                                </button>
+                                                        <strong id="sideBookmarked">0</strong> 收藏，<strong
+                                    class="no-stress">412</strong> 浏览
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end .post-topheader -->
+
+    <div class="container mt30">
+        <div class="row">
+            <div class="col-xs-12 col-md-9 main">
+                <article class="widget-question__item">
+                    <div class="post-col">
+                        <div class="widget-vote  ">
+                            <button type="button"
+                                    class="like"
+                                    data-id="1010000005704139"
+                                    data-type="question"
+                                    data-do="like"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="问题对人有帮助，内容完整，我也想知道答案">
+                                <span class="sr-only">问题对人有帮助，内容完整，我也想知道答案</span>
+                            </button>
+                                                        <span class="count">0</span>
+                            <button
+                                    type="button"
+                                    class="hate"
+                                    data-id="1010000005704139"
+                                    data-type="question"
+                                    data-do="hate"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="问题没有实际价值，缺少关键内容，没有改进余地">
+                                <span class="sr-only">问题没有实际价值，缺少关键内容，没有改进余地</span>
+                            </button>
+                        </div>
+                        <!-- end .widget-vote -->
+                    </div>
+
+                    <div class="post-offset">
+                        <div class="question fmt" data-id="1010000005704139">
+                                                            
+<p>这里说的动态分页是指使用ajax等技术实现的不改变页面URL，而改变页面内容<br>分页代码如下</p>
+<pre><code>&lt;div class="page-class" id="page-bar"&gt;
+ &lt;form method="get" action="/comment.php" name="selectPageForm"&gt;
+ &lt;div id="pager"&gt;
+ 总计 12405 个记录，共 870 页 &lt;span&gt; &lt;a href="javascript:gotoPage(1,9999,0)"&gt;第一页&lt;/a&gt; &lt;a href="javascript:;"&gt;上一页&lt;/a&gt; &lt;a href="javascript:gotoPage(2,9999,0)"&gt;下一页&lt;/a&gt; &lt;a href="javascript:gotoPage(870,9999,0)"&gt;最末页&lt;/a&gt; &lt;/span&gt;
+ &lt;/div&gt;
+ &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+<pre><code>function gotoPage(page, id, type)
+{
+  comment_current = page;
+  Ajax.call('/comment.php?act=gotopage', 'page=' + page + '&amp;id=' + id + '&amp;type=' + type, gotoPageResponse, 'GET', 'JSON');
+}</code></pre>
+<p>我使用的是nodejs环境，用cheerio解析<br>请问我该如何获取这些���态页每页的信息呢？<br>谢谢</p>
+
+                            
+                        </div>
+
+
+                                                                                                                        
+                        <div class="row">
+                            <div class="post-opt col-md-8">
+                                <ul class="list-inline mb0">
+                                    <li><a href="/q/1010000005704139">6月13日提问</a></li>
+                                                                            <li data-toggle="tooltip"
+                                            data-placement="top"  title="声望需要达到 200"                                             class="edit-btn js__rank-check ">
+                                            <a href="javascript:;">编辑</a>
+                                        </li>
+                                    
+                                    <li><a href="javascript:void(0);" class="comments" data-id="1010000005704139"
+                                           data-target="#comment-1010000005704139">
+                                            评论</a></li>
+
+
+                                    
+                                    
+                                    
+                                                                        <li class="edit-btn js__rank-check"
+                                        data-toggle="tooltip"  data-placement="top" title="声望需要达到 15"  >
+                                        <a class="  " href="javascript:;"
+                                           data-title="爬虫程序如何处理动态分页？"
+                                           data-url="http://sfau.lt/bNx54p" data-id="1010000005704139">邀请回答</a>
+                                    </li>
+
+                                    
+                                        <li class="dropdown js__content-ops" data-module="question" data-typetext="问题"
+                                            data-id="1010000005704139">
+                                            <a href="javascript:void(0);" class="dropdown-toggle"
+                                               data-toggle="dropdown">更多<b class="caret"></b></a>
+                                            <ul class="dropdown-menu dropdown-menu-left">
+                                                <li><a href="#911"
+                                                       data-toggle="modal"
+                                                       data-target="#911"
+                                                       data-action="report"
+                                                       >举报</a>
+                                                </li>
+
+                                                                                                    <li><a href="javascript:void(0);"
+                                                           data-toggle="modal"
+                                                           data-target="#911"
+                                                           data-action="close">关闭</a></li>
+                                                
+                                                
+                                                
+                                                
+                                                                                            </ul>
+                                        </li>
+                                                                    </ul>
+                            </div>
+
+                            
+                        </div>
+                        <div class="widget-comments hidden" id="comment-1010000005704139" data-id="1010000005704139">
+                    <div class="widget-comments__form row">
+            
+                            <form class="clearfix SFLogin" method="POST" >
+                    <div class="form-group mb0 widget-comments__form--input">
+                        <input name="id" type="hidden" value="1010000005704139"/>
+                        <textarea rows="1"                                     name="text"
+                                    class="SFLogin form-control mono" id="commentText-1010000005704139" data-id="1010000005704139"
+                                    placeholder="使用评论询问更多信息或提出修改意见，请不要在评论里回答问题"></textarea>
+
+                    </div>
+                    <div class="widget-comments__btn">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-default postComment"
+                                    data-id="1010000005704139"
+                                     >提交评论
+                            </button>
+                            <span class="widget-comments__btn--tips"><a href="javascript:void(0);"
+                                class="toggle-comment-helper"
+                                title="语法提示">
+                            <i class="fa fa-question-circle"></i>
+                        </a></span>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible mb0 mt10 fmt comment-helper" data-rank="" style="display:none;" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="right:0;"><span aria-hidden="true">&times;</span></button>
+                        评论支持部分 Markdown 语法：<code>**bold**</code> <code>_italic_</code>
+                        <code>[link](http://example.com)</code> <code>> 引用</code> <code>`code`</code> <code>-
+                        列表</code>。<br>同时，被你 @ 的用户也会收到通知
+                    </div>
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+                    </div>
+                    <!-- end .post-offset -->
+                </article>
+
+                    <div class="widget-answers">
+        <div class="btn-group pull-right" role="group">
+            <a href="/q/1010000005704139#answers-title" id="sortby-rank"
+               class="btn btn-default btn-xs active">默认排序</a>
+            <a href="?sort=created#answers-title" id="sortby-created"
+               class="btn btn-default btn-xs">时间排序</a>
+        </div>
+
+        <h2 class="title h4 mt30 mb20 post-title" id="answers-title">3个回答</h2>
+                                                
+                    
+    
+            
+
+
+    <article
+            class="clearfix widget-answers__item"
+            id="a-1020000005705237">
+        <div class="post-col">
+            <div class="widget-vote ">
+                <button type="button"
+                        class="like"
+                        data-id="1020000005705237"
+                        data-type="answer"
+                        data-do="like"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="答案对人有帮助，有参考价值">
+                    <span class="sr-only">答案对人有帮助，有参考价值</span>
+                </button>
+                                <span class="count">1</span>
+                <button type="button"
+                        class="hate"
+                        data-id="1020000005705237"
+                        data-type="answer"
+                        data-do="hate"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="答案没帮助，是错误的答案，答非所问">
+                    <span class="sr-only">答案没帮助，是错误的答案，答非所问</span>
+                </button>
+
+            </div>
+                    </div>
+
+        <div class="post-offset">
+            <div class="answer fmt" data-id="1020000005705237">
+                                    
+<ol>
+<li><p>思路一，一般情况下分页对应的请求url会带有pageIndex(页码)等参数，确定这一规则后可以递推出每一页的url规则。边界判断可以直接从页面拿到最后一页的页码或者通过总数量和页面最大数量计算，甚至你也可以通过http的错误码或者错误页的内容判断。</p></li>
+<li><p>思路二，直接模拟用户行为(假设是点击时间，超链接跳转)，则每次我们抓取当前页面内容的同时，可以同时抓取下一页的链接，依次抓取。(注意做边界的限制)</p></li>
+<li><p>思路三，抽链(这也是搜索引擎的做法之一)，抓取整个页面(或者局部区域)的所有链接，作正则匹配过滤，保留有效的分页url，进行url排重。然后，抓取内容(当然这两者可并行)</p></li>
+</ol>
+<p>暂时先说一下这几点思路。</p>
+
+                            </div>
+
+            
+                        
+            <div class="row answer__info--row">
+                <div class="post-opt col-md-8 col-sm-8 col-xs-10">
+                    <ul class="list-inline mb0">
+                        
+                        <li><a href="/q/1010000005704139/a-1020000005705237"> 6月13日回答</a> <span class="text-muted">
+
+                    </span></li>
+                                                    <li data-toggle="tooltip" data-placement="top" title="声望需要达到 200" class="edit-btn js__rank-check"><a href="javascript:;">编辑</a>
+                            </li>
+                        
+                        <li><a href="javascript:void(0);" class="comments" data-id="1020000005705237"
+                               data-target="#comment-1020000005705237">
+                                评论</a></li>
+                        
+                                            </ul>
+                </div>
+
+                <div class="col-md-2 col-sm-2 col-xs-2 answer__info--author-avatar">
+                    <a class="mr10" href="/u/nizhipeiyule"><img
+                                class="avatar-32 "
+                                data-toggle="popover"
+                                data-slug="nizhipeiyule"
+                                data-id="1030000002649826"
+                                src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/user-64.png"
+                                alt=""></a>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs answer__info--author">
+                    <div class=" answer__info--author-warp">
+                        <a class="answer__info--author-name" title="你只配娱乐"
+                           href="/u/nizhipeiyule">你只配娱乐</a><span
+                                class="answer__info--author-rank">166 声望</span></div>
+                </div>
+            </div>
+
+
+            <div class="widget-comments hidden" id="comment-1020000005705237" data-id="1020000005705237">
+                    <div class="widget-comments__form row">
+            
+                            <form class="clearfix SFLogin" method="POST" >
+                    <div class="form-group mb0 widget-comments__form--input">
+                        <input name="id" type="hidden" value="1020000005705237"/>
+                        <textarea rows="1"                                     name="text"
+                                    class="SFLogin form-control mono" id="commentText-1020000005705237" data-id="1020000005705237"
+                                    placeholder="使用评论询问更多信息或提出修改意见，请不要在评论里回答问题"></textarea>
+
+                    </div>
+                    <div class="widget-comments__btn">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-default postComment"
+                                    data-id="1020000005705237"
+                                     >提交评论
+                            </button>
+                            <span class="widget-comments__btn--tips"><a href="javascript:void(0);"
+                                class="toggle-comment-helper"
+                                title="语法提示">
+                            <i class="fa fa-question-circle"></i>
+                        </a></span>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible mb0 mt10 fmt comment-helper" data-rank="" style="display:none;" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="right:0;"><span aria-hidden="true">&times;</span></button>
+                        评论支持部分 Markdown 语法：<code>**bold**</code> <code>_italic_</code>
+                        <code>[link](http://example.com)</code> <code>> 引用</code> <code>`code`</code> <code>-
+                        列表</code>。<br>同时，被你 @ 的用户也会收到通知
+                    </div>
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+
+
+        </div>
+    </article><!-- /article -->
+
+                    
+    
+            
+
+
+    <article
+            class="clearfix widget-answers__item"
+            id="a-1020000005704229">
+        <div class="post-col">
+            <div class="widget-vote ">
+                <button type="button"
+                        class="like"
+                        data-id="1020000005704229"
+                        data-type="answer"
+                        data-do="like"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="答案对人有帮助，有参考价值">
+                    <span class="sr-only">答案对人有帮助，有参考价值</span>
+                </button>
+                                <span class="count">0</span>
+                <button type="button"
+                        class="hate"
+                        data-id="1020000005704229"
+                        data-type="answer"
+                        data-do="hate"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="答案没帮助，是错误的答案，答非所问">
+                    <span class="sr-only">答案没帮助，是错误的答案，答非所问</span>
+                </button>
+
+            </div>
+                    </div>
+
+        <div class="post-offset">
+            <div class="answer fmt" data-id="1020000005704229">
+                                    <p>你可以用Chrome的开发人员工具获取一下JS的访问内容（以及URL），然后去抓这些动态的内容。<br>你不能用Cheerio获取到这些动态内容，因为Cheerio只是用作XML/HTML解析的。</p>
+                            </div>
+
+            
+                        
+            <div class="row answer__info--row">
+                <div class="post-opt col-md-8 col-sm-8 col-xs-10">
+                    <ul class="list-inline mb0">
+                        
+                        <li><a href="/q/1010000005704139/a-1020000005704229"> 6月13日回答</a> <span class="text-muted">
+
+                    </span></li>
+                                                    <li data-toggle="tooltip" data-placement="top" title="声望需要达到 200" class="edit-btn js__rank-check"><a href="javascript:;">编辑</a>
+                            </li>
+                        
+                        <li><a href="javascript:void(0);" class="comments" data-id="1020000005704229"
+                               data-target="#comment-1020000005704229">
+                                评论</a></li>
+                        
+                                            </ul>
+                </div>
+
+                <div class="col-md-2 col-sm-2 col-xs-2 answer__info--author-avatar">
+                    <a class="mr10" href="/u/e10101"><img
+                                class="avatar-32 "
+                                data-toggle="popover"
+                                data-slug="e10101"
+                                data-id="1030000005171162"
+                                src="https://sfault-avatar.b0.upaiyun.com/453/230/453230058-573ffdd5eef2b_big64"
+                                alt=""></a>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs answer__info--author">
+                    <div class=" answer__info--author-warp">
+                        <a class="answer__info--author-name" title="e10101"
+                           href="/u/e10101">e10101</a><span
+                                class="answer__info--author-rank">159 声望</span></div>
+                </div>
+            </div>
+
+
+            <div class="widget-comments hidden" id="comment-1020000005704229" data-id="1020000005704229">
+                    <div class="widget-comments__form row">
+            
+                            <form class="clearfix SFLogin" method="POST" >
+                    <div class="form-group mb0 widget-comments__form--input">
+                        <input name="id" type="hidden" value="1020000005704229"/>
+                        <textarea rows="1"                                     name="text"
+                                    class="SFLogin form-control mono" id="commentText-1020000005704229" data-id="1020000005704229"
+                                    placeholder="使用评论询问更多信息或提出修改意见，请不要在评论里回答问题"></textarea>
+
+                    </div>
+                    <div class="widget-comments__btn">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-default postComment"
+                                    data-id="1020000005704229"
+                                     >提交评论
+                            </button>
+                            <span class="widget-comments__btn--tips"><a href="javascript:void(0);"
+                                class="toggle-comment-helper"
+                                title="语法提示">
+                            <i class="fa fa-question-circle"></i>
+                        </a></span>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible mb0 mt10 fmt comment-helper" data-rank="" style="display:none;" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="right:0;"><span aria-hidden="true">&times;</span></button>
+                        评论支持部分 Markdown 语法：<code>**bold**</code> <code>_italic_</code>
+                        <code>[link](http://example.com)</code> <code>> 引用</code> <code>`code`</code> <code>-
+                        列表</code>。<br>同时，被你 @ 的用户也会收到通知
+                    </div>
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+
+
+        </div>
+    </article><!-- /article -->
+
+                    
+    
+            
+
+
+    <article
+            class="clearfix widget-answers__item"
+            id="a-1020000005704305">
+        <div class="post-col">
+            <div class="widget-vote ">
+                <button type="button"
+                        class="like"
+                        data-id="1020000005704305"
+                        data-type="answer"
+                        data-do="like"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="答案对人有帮助，有参考价值">
+                    <span class="sr-only">答案对人有帮助，有参考价值</span>
+                </button>
+                                <span class="count">0</span>
+                <button type="button"
+                        class="hate"
+                        data-id="1020000005704305"
+                        data-type="answer"
+                        data-do="hate"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="答案没帮助，是错误的答案，答非所问">
+                    <span class="sr-only">答案没帮助，是错误的答案，答非所问</span>
+                </button>
+
+            </div>
+                    </div>
+
+        <div class="post-offset">
+            <div class="answer fmt" data-id="1020000005704305">
+                                    <p>获取第一页的时候 正则匹配出来 “共 870 页”  /共 (d+) 页/  就能知道一共有多少页 <br>然后用页码替换链接中的页数 就可以爬取每页的信息了</p>
+                            </div>
+
+            
+                        
+            <div class="row answer__info--row">
+                <div class="post-opt col-md-8 col-sm-8 col-xs-10">
+                    <ul class="list-inline mb0">
+                        
+                        <li><a href="/q/1010000005704139/a-1020000005704305"> 6月13日回答</a> <span class="text-muted">
+
+                    </span></li>
+                                                    <li data-toggle="tooltip" data-placement="top" title="声望需要达到 200" class="edit-btn js__rank-check"><a href="javascript:;">编辑</a>
+                            </li>
+                        
+                        <li><a href="javascript:void(0);" class="comments" data-id="1020000005704305"
+                               data-target="#comment-1020000005704305">1
+                                评论</a></li>
+                        
+                                            </ul>
+                </div>
+
+                <div class="col-md-2 col-sm-2 col-xs-2 answer__info--author-avatar">
+                    <a class="mr10" href="/u/yangzi1234"><img
+                                class="avatar-32 "
+                                data-toggle="popover"
+                                data-slug="yangzi1234"
+                                data-id="1030000005704191"
+                                src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/user-64.png"
+                                alt=""></a>
+                </div>
+                <div class="col-md-2 col-sm-2 hidden-xs answer__info--author">
+                    <div class=" answer__info--author-warp">
+                        <a class="answer__info--author-name" title="洋仔1234"
+                           href="/u/yangzi1234">洋仔1234</a><span
+                                class="answer__info--author-rank">2 声望</span></div>
+                </div>
+            </div>
+
+
+            <div class="widget-comments hidden" id="comment-1020000005704305" data-id="1020000005704305">
+                    <div class="widget-comments__form row">
+            
+                            <form class="clearfix SFLogin" method="POST" >
+                    <div class="form-group mb0 widget-comments__form--input">
+                        <input name="id" type="hidden" value="1020000005704305"/>
+                        <textarea rows="1"                                     name="text"
+                                    class="SFLogin form-control mono" id="commentText-1020000005704305" data-id="1020000005704305"
+                                    placeholder="使用评论询问更多信息或提出修改意见，请不要在评论里回答问题"></textarea>
+
+                    </div>
+                    <div class="widget-comments__btn">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-default postComment"
+                                    data-id="1020000005704305"
+                                     >提交评论
+                            </button>
+                            <span class="widget-comments__btn--tips"><a href="javascript:void(0);"
+                                class="toggle-comment-helper"
+                                title="语法提示">
+                            <i class="fa fa-question-circle"></i>
+                        </a></span>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-md-12">
+                    <div class="alert alert-warning alert-dismissible mb0 mt10 fmt comment-helper" data-rank="" style="display:none;" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="right:0;"><span aria-hidden="true">&times;</span></button>
+                        评论支持部分 Markdown 语法：<code>**bold**</code> <code>_italic_</code>
+                        <code>[link](http://example.com)</code> <code>> 引用</code> <code>`code`</code> <code>-
+                        列表</code>。<br>同时，被你 @ 的用户也会收到通知
+                    </div>
+                </div>
+            
+        </div><!-- /.widget-comments__form -->
+            </div><!-- /.widget-comments -->
+
+    
+
+
+        </div>
+    </article><!-- /article -->
+
+        
+        
+        
+        <div class="text-center">
+            
+        </div>
+    </div><!-- /.widget-answers -->
+
+
+            
+                    <div style="padding-left: 65px;" id="goToAnswerEditor">
+            <h4>撰写答案</h4>
+            <input type="hidden" id="draftId" value="">
+            <input type="hidden" value="1010000005704139" id="questionId">
+            <form action="/question/1010000005704139/answers/add" method="post" class="editor-wrap">
+                <div class="editor" id="questionText">
+                    <textarea id="answerEditor" name="text" class="form-control" rows="4"
+                                                            placeholder="撰写答案..."></textarea>
+                </div>
+                <div id="answerSubmit" class="hide mt15 clearfix">
+                    <div class="checkbox pull-left">
+                        <label><input type="checkbox" class="" id="shareToWeibo">
+                            同步到新浪微博</label>
+                    </div>
+                    <div class="pull-right">
+                    <span id="editorStatus" class="hidden text-muted">
+
+                    </span>
+                        <a id="dropIt" href="javascript:void(0);" class="mr10 hidden">[舍弃]</a>
+                        <button type="submit" id="answerIt" data-id="1010000005704139"
+                                class="btn btn-lg btn-primary ml20">提交回答
+                        </button>
+                    </div>
+                </div>
+            </form>
+                        </div>
+            
+                    
+                            </div>
+            <!-- /.main -->
+
+
+            
+<div class="col-xs-12 col-md-3 side">
+    <div class="sfad-sidebar">
+      <div class="sfad-item">
+    <ins data-revive-zoneid="1" data-revive-block="1" data-revive-target="_blank" data-revive-ct0='1475833502' data-revive-id="0042ddc520dc895b7aa784fe6f9339bd"></ins>
+    <button class="close" type="button" aria-hidden="true">&times;</button>
+</div>
+
+  </div>
+
+        <div data-api="/api/news/newest">
+        <script type="text/template">
+            <div class="widget_headline widget-box mt20 mb30">
+                <h2 class="h4 widget-box__title">头条</h2>
+                <ul class="taglist--block pl20" >
+                    <% _.each(data,function(d){ %>
+                    <li class="">
+                        <a href="<%- d.url %>" data-id="<%- d.id %>"
+                           data-original-title="<%= d.name %>"><%= d.title %></a>
+                        <p class=""><span class="mr5 color_F5A623"><%- d.VotesWord %> 赞</span> | <span class="ml5"><%- d.comments %> 评论</span></p>
+                    </li>
+                    <% }) %>
+                    <a href="/news" target="_blank" class="f12" >更多头条内容→</a>
+                </ul>
+
+            </div>
+        </script>
+    </div>
+
+
+                <div data-type="widget" data-api="/api/bookmarkArchive/hots" data-api-overwrite="/api/bookmarkArchive/1010000005704139/related">
+        <script type="text/template">
+            <div class="widget-box widget-box--bookmark no-border">
+                <h4 class="widget-box__title">相关收藏夹 <a id="widgetBookmarkRefresh" class="userstab pull-right"
+                                                          href="javascript:;">换一组</a></h4>
+                <ul class="widget-links list-unstyled media">
+                    <% _.each(data,function(d){ %>
+                    <li class="widget-links__item">
+                        <img class="pull-left pattern pattern-<%= d.id%19 %> mr10" src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/pattern/<%= d.id%10 ? d.id%10 : 10 %>.svg" width="32">
+                        <div class="media-body">
+                            <a target="_blank" class="ellipsis mr0" href="<%- d.url %>"><%= d.name %></a>
+                            <p class="mb0">
+                                <span><%- d.num %></span> 个条目 <span class="division">|</span> <span><%- d.followers %></span> 人关注
+                            </p>
+                        </div>
+                    </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </script>
+    </div>
+
+        <div class="widget-box no-border">
+            <h2 class="h4 widget-box__title">相似问题</h2>
+            <ul class="widget-links list-unstyled">
+                                    <li class="widget-links__item"><a title="NodeJS做一个小爬虫出现乱码问题" href="/q/1010000004998075">NodeJS做一个小爬虫出现乱码问题</a>
+                                                    <small class="text-muted">
+                                                                    5 回答
+                                                                                                     |                                     已解决
+                                                            </small>
+                                            </li>
+                                    <li class="widget-links__item"><a title="关于微博的爬虫问题！！？" href="/q/1010000003996957">关于微博的爬虫问题！！？</a>
+                                                    <small class="text-muted">
+                                                                    3 回答
+                                                                                                     |                                     已解决
+                                                            </small>
+                                            </li>
+                                    <li class="widget-links__item"><a title="关于nodejs中的cluster的一些疑问" href="/q/1010000004529832">关于nodejs中的cluster的一些疑问</a>
+                                                    <small class="text-muted">
+                                                                    1 回答
+                                                                                            </small>
+                                            </li>
+                                    <li class="widget-links__item"><a title="nodejs写爬虫做微博搜索有比较好的资源推荐吗？" href="/q/1010000002419275">nodejs写爬虫做微博搜索有比较好的资源推荐吗？</a>
+                                                    <small class="text-muted">
+                                                                    2 回答
+                                                                                                     |                                     已解决
+                                                            </small>
+                                            </li>
+                                    <li class="widget-links__item"><a title="nodejs爬虫爬取网站的时候中文乱码问题" href="/q/1010000002448150">nodejs爬虫爬取网站的时候中文乱码问题</a>
+                                                    <small class="text-muted">
+                                                                    1 回答
+                                                                                                     |                                     已解决
+                                                            </small>
+                                            </li>
+                                    <li class="widget-links__item"><a title="【求解】nodejs豆瓣小组爬虫分析与解决。" href="/q/1010000000595998">【求解】nodejs豆瓣小组爬虫分析与解决。</a>
+                                                    <small class="text-muted">
+                                                                    3 回答
+                                                                                            </small>
+                                            </li>
+                                    <li class="widget-links__item"><a title="cheerio 的问题" href="/q/1010000006021071">cheerio 的问题</a>
+                                                    <small class="text-muted">
+                                                                    1 回答
+                                                                                            </small>
+                                            </li>
+                                    <li class="widget-links__item"><a title="nodejs的多线程" href="/q/1010000004239040">nodejs的多线程</a>
+                                                    <small class="text-muted">
+                                                                    6 回答
+                                                                                                     |                                     已解决
+                                                            </small>
+                                            </li>
+                                    <li class="widget-links__item"><a title="Nodejs 如何过滤掉特殊字符" href="/q/1010000005104842">Nodejs 如何过滤掉特殊字符</a>
+                                            </li>
+                                    <li class="widget-links__item"><a title="nodejs 爬虫遇到形如;&amp;amp;#x5B89;&amp;amp;#x5353;&amp;amp;#x7AEF;的编码如何转换为中文？" href="/q/1010000003500477">nodejs 爬虫遇到形如;&amp;#x5B89;&amp;#x5353;&amp;#x7AEF;的编码如何转换为中文？</a>
+                                                    <small class="text-muted">
+                                                                    1 回答
+                                                                                                     |                                     已解决
+                                                            </small>
+                                            </li>
+                            </ul>
+        </div>
+
+        <div class="widget-share__full" data-text="爬虫程序如何处理动态分页？"
+ data-url="https://segmentfault.com/q/1010000005704139" data-shorturl="http://sfau.lt/bNx54p"></div>
+
+    
+</div><!-- /.side -->
+
+        </div>
+    </div>
+</div>
+
+<div id="shareToWeiboModal" class="modal" tabindex='-1'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">分享</h4>
+            </div>
+            <div class="modal-body">
+                <p class="sfModal-content">
+                    分享到微博？
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default dont-likeweibo" data-dismiss="modal">取消</button>
+                <a href="" id="shareLink" class="btn btn-primary done-btn" target="_blank"
+                   onclick="$('#shareToWeiboModal').modal('hide')">分享</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+<script type="text/template" id="regNext">
+        <div class="row flex-vertical-center">
+        <div class="col-md-12">
+            <p class="mb0" style="font-size: 14px; margin-right:50px; font-family: Source Code Pro,Consolas,Menlo,Monaco,Courier New,monospace;">
+                    有人不断向你扔红黑二叉树
+            </p>
+            <button class="btn btn-primary SFLogin mr10"
+                    onclick='ga("send", "event", "join button", "clicked", "footer welcome popup");'>左旋
+            </button>
+            <button class="btn  btn-default  tomorrow">我在根节点</button>
+        </div>
+        
+    </div>
+</script>
+
+<div class="hidden widget-register widget-welcome-question mt20 hidden-xs widget-welcome widget-register-slideUp">
+    <div class="container">
+        <div class="row flex-vertical-center">
+            <div class="col-sm-12 col-md-8">
+                <p class="mb0">
+                                            Hi，欢迎来到 SegmentFault 技术社区！⊙▽⊙ <br><br>在这里，你可以提出编程相关的疑惑，关注感兴趣的问题，对认可的回答投赞同票；<br>大家会帮你解决编程的问题，和你探讨技术更新，为你的回答投上赞同票。
+                                                        </p>
+
+            </div>
+            <div class="col-sm-12 col-lg-3 col-lg-offset-1 col-md-4">
+                <button class="btn btn-primary btn-lg SFLogin  mr10"
+                        onclick='ga("send", "event", "join button", "clicked", "footer welcome popup");'>立即注册
+                </button>
+                <button class="btn btn-lg btn-default  tomorrow">明天提醒我</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="delete-modal" class="modal widget-911" tabindex='-1'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title radio-del question-close-only">关闭<span class="type-911">问题</span>（请谨慎操作）</h4>
+                <h4 class="modal-title radio-del question-delete-only">删除<span class="type-911">问题</span>（请谨慎操作）</h4>
+                <h4 class="modal-title radio-del answer-delete-only">删除<span class="type-911">回答</span>（请谨慎操作）</h4>
+                <h4 class="modal-title radio-del answer-ignore-only">忽略<span class="type-911">回答</span></h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <strong class="required radio-del question-close-only">关闭理由：</strong>
+                    <strong class="required radio-del question-delete-only answer-delete-only">删除理由：</strong>
+                    <strong class="required radio-del answer-ignore-only">忽略理由：</strong>
+                </p>
+                <div id="reportDescription">
+                    <div class="radio-del radio all">
+                        <label>
+                            <input type="radio" name="descRadio" value="推广（招聘、广告、SEO 等）方面的内容" />
+                            推广（招聘、广告、SEO 等）方面的内容
+                        </label>
+                    </div>
+                    <div class="radio-del radio question-close-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="与已有问题重复">
+                            与已有问题重复（请编辑该提问指向已有相同问题）
+                        </label>
+                    </div>
+                    <div class="radio-del radio answer-ignore-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="答非所问，不符合答题要求">
+                            答非所问，不符合答题要求
+                        </label>
+                    </div>
+                    <div class="radio-del radio answer-ignore-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="宜作评论而非答案">
+                            宜作评论而非答案
+                        </label>
+                    </div>
+                    <div class="radio-del radio all">
+                        <label>
+                            <input type="radio" name="descRadio" value="带有人身攻击、辱骂、仇恨等违反条款的内容">
+                            带有人身攻击、辱骂、仇恨等违反条款的内容
+                        </label>
+                    </div>
+                    <div class="radio-del radio question-close-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="无法获得确切结果的问题">
+                            无法获得确切结果的问题
+                        </label>
+                    </div>
+                    <div class="radio-del radio question-close-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="非开发直接相关的问题">
+                            非开发直接相关的问题
+                        </label>
+                    </div>
+                    <div class="radio-del radio question-close-only question-delete-only">
+                        <label>
+                            <input type="radio" name="descRadio" value="非技术提问的讨论型问题">
+                            非技术提问的讨论型问题
+                        </label>
+                    </div>
+
+                    <div class="radio-del radio all btwRadio">
+                        <label>
+                            <input type="radio" name="descRadio" value="">
+                            其他原因（请补充说明）
+                        </label>
+                    </div>
+                    <div class="btw" style="display:none;">
+                        <p class="mt20"><strong>补充说明：</strong></p>
+                        <textarea class="form-control" rows="3" name="description" id="deleteDesc"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="submit-delete">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal widget-911" id="911" tabindex='-1'>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title"><span data-model="action"></span><span data-model="type"></span></h4>
+      </div>
+      <div class="modal-body">
+        <form id="reportForm">
+          <!-- 后台返回信息 -->
+          <p class="alert alert-warning" data-model="returnMsg"></p>
+          <div data-role="base">
+            <p>
+              <strong class="required">我要<span data-model="action"></span>该<span data-model="type"></span>，理由是：</strong>
+            </p>
+            <ul class="list-unstyled" data-model="list"></ul>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default pull-left" type="button" data-role="back" style="display:none">返回重选</button>
+                <button class="btn btn-default" data-dismiss="modal" type="button">取消</button>
+        <button class="btn btn-primary" data-role="submit" type="button">提交</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<footer id="footer">
+    <div class="container">
+        <div class="row hidden-xs">
+            <dl class="col-sm-2 site-link">
+                <dt>网站相关</dt>
+                <dd><a href="/about">关于我们</a></dd>
+                <dd><a href="/tos">服务条款</a></dd>
+                <dd><a href="/faq">帮助中心</a></dd>
+                <dd><a href="/repu">声望与权限</a></dd>
+                <dd><a href="/markdown">编辑器语法</a></dd>
+                <dd><a href="//weekly.segmentfault.com/">每周精选</a></dd>
+                <dd><a href="/app">App 下载</a></dd>
+            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>联系合作</dt>
+                <dd><a href="/contact">联系我们</a></dd>
+                <dd><a href="/hiring">加入我们</a></dd>
+                <dd><a href="/link">合作伙伴</a></dd>
+                <dd><a href="/press">媒体报道</a></dd>
+                <dd><a href="https://board.segmentfault.com/">建议反馈</a></dd>
+                            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>常用链接</dt>
+                                                <dd><a href="//chrome.google.com/webstore/detail/segmentfault-%E7%AC%94%E8%AE%B0/pjklfdmleagfaekibdccmhlhellefcfo" target="_blank">笔记插件: Chrome</a></dd>
+                                                                <dd><a href="//addons.mozilla.org/zh-CN/firefox/addon/sf-note-ext/" target="_blank">笔记插件: Firefox</a></dd>
+                                                                <dd>订阅：<a href="/feeds">问答</a> / <a href="/feeds/blogs">文章</a></dd>
+                                                                <dd><a href="//mirrors.segmentfault.com/" target="_blank">文档镜像</a></dd>
+                                                                <dd><a href="//segmentfault.com/blog/interview" target="_blank">社区访谈</a></dd>
+                                                                <dd><a href="//segmentfault.com/d-day" target="_blank">D-DAY 技术沙龙</a></dd>
+                                                                <dd><a href="//segmentfault.com/hackathon" target="_blank">黑客马拉松 Hackathon</a></dd>
+                                                                <dd><a href="//namebeta.com/" target="_blank">域名搜索注册</a></dd>
+                                            </dl>
+            <dl class="col-sm-2 site-link">
+                <dt>关注我们</dt>
+                                <dd><a href="//github.com/SegmentFault" target="_blank">Github</a></dd>
+                                <dd><a href="//twitter.com/segment_fault" target="_blank">Twitter</a></dd>
+                                <dd><a href="http://weibo.com/segmentfault" target="_blank">新浪微博</a></dd>
+                                <dd><a href="//segmentfault.com/blog/segmentfault_team" target="_blank">团队日志</a></dd>
+                                <dd><a href="//segmentfault.com/blog/segmentfault" target="_blank">产品技术日志</a></dd>
+                                <dd><a href="//segmentfault.com/blog/community_admin" target="_blank">社区运营日志</a></dd>
+                                <dd><a href="//segmentfault.com/blog/segmentfault_news" target="_blank">市场运营日志</a></dd>
+                            </dl>
+            <dl class="col-sm-4 site-link" id="license">
+                <dt>内容许可</dt>
+                <dd>除特别说明外，用户内容均采用 <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-sa/3.0/cn/">知识共享署名-相同方式共享 3.0 中国大陆许可协议</a> 进行许可
+                </dd>
+                <dd>本站由 <a target="_blank" href="https://www.upyun.com/?utm_source=segmentfault&utm_medium=link&utm_campaign=upyun&md=segmentfault">又拍云</a> 提供 CDN 存储服务
+                </dd>
+            </dl>
+        </div>
+        <div class="copyright">
+            Copyright &copy; 2011-2016 SegmentFault. 当前呈现版本 16.09.13<br>
+            <a href="http://www.miibeian.gov.cn/" rel="nofollow">浙ICP备 15005796号-2</a> &nbsp;
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602002000" rel="nofollow">浙公网安备 33010602002000号</a>
+        </div>
+        <p class="text-center">
+            <a class="js__view--selector hidden-sm hidden-md hidden-lg" data-action="mobile" href="javascript:;">移动版</a>
+            <a class="js__view--selector hidden-sm hidden-md hidden-lg" data-action="desktop" href="javascript:;">桌面版</a>
+        </p>
+    </div>
+</footer>
+
+<div id="fixedTools" class="hidden-xs hidden-sm">
+    <a id="backtop" class="hidden border-bottom" href="#">回顶部</a>
+
+    <div class="qrcodeWraper">
+        <a href="/app#qrcode"><span class="glyphicon glyphicon-qrcode"></span></a>
+        <img id="qrcode" class="border" alt="sf-wechat" src="https://sf-static.b0.upaiyun.com/v-57ecc802/page/img/app/appQrcode.png">
+
+        <p class="qrcode-text">扫扫下载 App</p>
+    </div>
+</div>
+
+<div class="app-promotion-bar">
+    <a href="javascript:;"><i class="fa fa-close close"></i></a>
+    <div class="icon"></div>
+    <h5 class="title h5">SegmentFault</h5>
+    <p class="describe">一起探索更多未知</p>
+    <a class="download-btn btn btn-sm btn-primary" href="/app#qrcode">下载 App</a>
+</div>
+
+<script id="loginModal" type="text/template">
+<div class="row bg-white login-modal">
+    <div class="col-md-4 col-sm-12 col-md-push-7 login-wrap">
+        <h1 class="h4 text-muted login-title">用户登录</h1>
+        <form action="/api/user/login" method="POST" role="form" class="mt30">
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input type="email" class="form-control" name="mail" autocomplete="off" required placeholder="hello@segmentfault.com">
+            </div>
+            <div class="form-group">
+                <label class="control-label">密码</label>
+                <input type="password" class="form-control" name="password" required placeholder="密码">
+            </div>
+            <div class="form-group clearfix">
+                <div class="checkbox pull-left">
+                    <label><input name="remember" type="checkbox" value="1" checked> 记住登录状态</label>
+                </div>
+                <button type="submit" class="btn btn-primary pull-right pl20 pr20" onclick='ga("send", "event", "email login button", "clicked", "login modal");'>登录</button>
+            </div>
+        </form>
+        <p class="h4 text-muted visible-xs-block h4">快速登录</p>
+        <div class="widget-login mt30">
+            <p class="text-muted mt5 mr10 pull-left hidden-xs">快速登录</p>
+            <a href="/user/oauth/google" class="btn btn-default btn-sm btn-sn-google" onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "google"});'><span class="icon-sn-bg-google"></span> <strong class="visible-xs-inline">Google 账号</strong></a>
+            <a href="/user/oauth/github" class="btn btn-default btn-sm btn-sn-github" onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "github"});");'><span class="icon-sn-bg-github"></span> <strong class="visible-xs-inline">Github 账号</strong></a>
+            <a href="/user/oauth/weibo" class="btn btn-default btn-sm btn-sn-weibo" onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "weibo"});'><span class="icon-sn-bg-weibo"></span> <strong class="visible-xs-inline">新浪微博账号</strong></a>
+            <a href="/user/oauth/qq" class="btn btn-default btn-sm btn-sn-qq" onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "qq"});'><span class="icon-sn-bg-qq"></span> <strong class="visible-xs-inline">QQ 账号</strong></a>
+            <a href="/user/oauth/weixin" class="btn btn-default btn-sm btn-sn-weixin" onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "qq"});'><span class="icon-sn-bg-weixin"></span> <strong class="visible-xs-inline">微信账号</strong></a>
+            <button id="loginShowMore" href="javascript:void(0);" class="btn mb5 btn-default btn-sm btn-sn-dotted"><span class="icon-sn-bg-dotted"></span><strong class="visible-xs-inline">•••</strong></button>
+            <a href="/user/oauth/twitter" class="btn btn-default btn-sn-twitter btn-sm hidden" onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "twitter"});'><span class="icon-sn-bg-twitter"></span> <strong class="visible-xs-inline">Twitter 账号</strong></a>
+            <a href="/user/oauth/facebook" class="btn btn-default btn-sn-facebook btn-sm hidden" onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "facebook"});'><span class="icon-sn-bg-facebook"></span> <strong class="visible-xs-inline">Facebook 账号</strong></a>
+            <a href="/user/oauth/douban" class="btn btn-default btn-sn-douban btn-sm hidden" onclick='ga("send", "event", "3rd login button", "clicked", "login modal", {media: "douban"});'><span class="icon-sn-bg-douban"></span> <strong class="visible-xs-inline">豆瓣账号</strong></a>
+        </div>
+    </div>
+    <div class="login-vline hidden-xs hidden-sm"></div>
+    <div class="col-md-4 col-md-pull-3 col-sm-12 login-wrap">
+        <h1 class="h4 text-muted login-title">创建新账号</h1>
+        <form action="/api/user/register" method="POST" role="form" class="mt30">
+            <div class="form-group">
+                <label for="name" class="control-label">用户名</label>
+                <input type="text" class="form-control" name="name" required placeholder="字母、数字等，用户名唯一">
+            </div>
+            <div class="form-group">
+                <label for="mail" class="control-label">Email</label>
+                <input type="hidden" style="display:none" name="mail">
+                <input type="email" autocomplete="off" class="form-control register-mail" name="mail" required autocomplete="off" placeholder="hello@segmentfault.com">
+            </div>
+            <div class="form-group">
+                <label for="password" class="control-label">密码</label>
+                <input type="password" class="form-control" name="password" required placeholder="不少于 6 位">
+            </div>
+            <div class="form-group" style="display:none;">
+                <label class="required control-label">验证码</label>
+                <input type="text" class="form-control" id="captcha" name="captcha" placeholder="请输入下方的验证码">
+                <div class="mt10"><a id="loginReloadCaptcha"  href="javascript:void(0)"><img data-src="/user/captcha?w=240&h=50" class="captcha" width="240" height="50" /></a></div>
+            </div>
+            <div class="form-group clearfix">
+                <div class="checkbox pull-left">
+                    同意并接受<a href="/tos" target="_blank">《服务条款》</a>
+                </div>
+                <button type="submit" class="btn btn-primary pl20 pr20 pull-right" onclick='ga("send", "event", "email register button", "clicked", "login modal");'>注册</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="text-center text-muted mt30">
+    <a href="/user/forgot" class="ml5">找回密码</a>
+</div>
+</script>
+
+
+
+<script>
+    (function (w) {
+        w.SF = {
+            staticUrl: "https://sf-static.b0.upaiyun.com/v-57ecc802"
+        };
+        w.SF.token = (function () {
+    var _hld6d = 'b'//'v'
++//'h'
+'a3'+''///*'l'*/'l'
++'38'//'TNo'
++//'T'
+'T'+'6'//'WYQ'
++'w'//'w'
++//'AN'
+'e93'+'59'//'yuC'
++'M'//'M'
++'d5a'//'LJh'
++'8'//'iH6'
++//'I'
+'a16'+'d04'//'CJF'
++//'Uv3'
+'3de'+//'e'
+'ddf'+//'tah'
+'53c'+//'n'
+'98', _yNH = [[5,6],[6,7],[11,12]];
+
+    for (var i = 0; i < _yNH.length; i ++) {
+        _hld6d = _hld6d.substring(0, _yNH[i][0]) + _hld6d.substring(_yNH[i][1]);
+    }
+
+    return _hld6d;
+})();;
+    })(window);
+
+                var lock = {
+        type: "",
+        text: '',
+        table: {"ban_post":[1,"\u4f60\u5df2\u7ecf\u88ab\u7981\u8a00, \u65e0\u6cd5\u8fdb\u884c\u6b64\u64cd\u4f5c, \u5982\u6709\u7591\u4e49\u8bf7\u63d0\u4ea4\u7533\u8bc9, \u6216\u8005\u53d1\u90ae\u4ef6\u5230pr@segmentfault.com"]}
+    };
+</script>
+
+    <script crossorigin src="https://sf-static.b0.upaiyun.com/v-57ecc802/3rd/assets.js"></script>
+    <script crossorigin src="https://sf-static.b0.upaiyun.com/v-57ecc802/qa/script/question.min.js"></script>
+
+<script async src="//sponsor.segmentfault.com/asyncjs.php"></script>
+
+<script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-918487-8']);
+    _gaq.push(['_trackPageview']);
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            
+        
+
+            
+
+    ga('create', 'UA-918487-8', 'auto', {
+        'userID'
+    : 0,
+        'createdTime'
+    : 0,
+        'now'
+    : 1475833502 });
+    ga('set', 'dimension1', 'guest');
+    ga('send', 'pageview');
+
+</script>
+
+<script type='text/javascript'>
+    var _vds = _vds || [];
+    window._vds = _vds;
+    (function() {
+        _vds.push(['setAccountId', '5411b7ab1ae040ed9a4eb4a120a06ead']);
+        (function() {
+            var vds = document.createElement('script');
+            vds.type = 'text/javascript';
+            vds.async = true;
+            vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(vds, s);
+        })();
+    })();
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?e23800c454aa573c0ccb16b52665ac26";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</body>
+</html>

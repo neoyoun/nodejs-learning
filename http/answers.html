@@ -1,8 +1,8 @@
 
 
-<!DOCTYPE HTML><html lang="zh-CN"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><meta name="renderer" content="webkit"/><meta property="qc:admins" content="15317273575564615446375"/><meta property="og:image" content="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon.png"/><meta name="viewport"
-              content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/><meta name="alexaVerifyID" content="LkzCRJ7rPEUwt6fVey2vhxiw1vQ"/><meta name="apple-itunes-app" content="app-id=958101793, app-argument="><title>nodejs爬虫 - 爬虫程序如何处理动态分页？ - SegmentFault</title><meta name="description" content="这里说的动态分页是指使用ajax等技术实现的不改变页面URL，而改变页面内容分页代码如下 {代码...} {代码...} 我使用的是nodejs环境，用cheerio解析请问我该如何获���这些动态页每页的信息呢？谢谢"/><meta name="keywords" content="cheerio,nodejs爬虫"/><link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="SegmentFault"/><link rel="shortcut icon" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/favicon.ico"/><link rel="apple-touch-icon" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon.png"><meta name="msapplication-TileColor" content="#009a61"/><meta name="msapplication-square150x150logo" content="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon.png"/><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新问题" href="/feeds/questions"><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新文章" href="/feeds/blogs"><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/css/global.css"/><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57ecc802/qa/css/qa.css"/><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/css/responsive.css"/><!--[if lt IE 9]><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57ecc802/global/css/ie.css"/><script src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/script/html5shiv.js"></script><script src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/script/respond.js"></script><![endif]--><script src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/script/debug.js"></script></head><body data-mod="qa"
-    class="qa-question "><!--[if lt IE 9]><div class="alert alert-danger topframe" role="alert">你的浏览器实在<strong>太太太太太太旧了</strong>，放学别走，升级完浏览器再说 <a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div><![endif]--><img id="icon4weChat" style="height: 0;width: 0;" data-src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon-512.png"><img id="icon4weChat" data-src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/touch-icon-512.png"><div class="global-nav sf-header"><nav class="container nav"><div class="hidden-sm hidden-lg hidden-md"><div class="sf-header__logo sf-header__logo--response"><h1><a></a></h1></div><div class="dropdown m-menu"><a href="javascript:void(0);" id="dLabel" class="visible-xs-block m-toptools"
+<!DOCTYPE HTML><html lang="zh-CN"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/><meta name="renderer" content="webkit"/><meta property="qc:admins" content="15317273575564615446375"/><meta property="og:image" content="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/img/touch-icon.png"/><meta name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/><meta name="alexaVerifyID" content="LkzCRJ7rPEUwt6fVey2vhxiw1vQ"/><meta name="apple-itunes-app" content="app-id=958101793, app-argument="><title>nodejs爬虫 - 爬虫程序如何处理动态分页？ - SegmentFault</title><meta name="description" content="这里说的动态分页是指使用ajax等技术实现的不改变页面URL，而改变页面内容分页代码如下 {代码...} {代码...} 我使用的是nodejs环境，用cheerio解析请问我该如何获取这些动态页每页的信息呢？谢谢"/><meta name="keywords" content="cheerio,nodejs爬虫"/><link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="SegmentFault"/><link rel="shortcut icon" href="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/img/favicon.ico"/><link rel="apple-touch-icon" href="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/img/touch-icon.png"><meta name="msapplication-TileColor" content="#009a61"/><meta name="msapplication-square150x150logo" content="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/img/touch-icon.png"/><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新问题" href="/feeds/questions"><link rel="alternate" type="application/atom+xml" title="SegmentFault 最新文章" href="/feeds/blogs"><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/css/global.css"/><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57fb22ae/qa/css/qa.css"/><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/css/responsive.css"/><!--[if lt IE 9]><link rel="stylesheet" href="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/css/ie.css"/><script src="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/script/html5shiv.js"></script><script src="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/script/respond.js"></script><![endif]--><script src="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/script/debug.js"></script></head><body data-mod="qa"
+    class="qa-question "><!--[if lt IE 9]><div class="alert alert-danger topframe" role="alert">你的浏览器实在<strong>太太太太太太旧了</strong>，放学别走，升级完浏览器再说 <a target="_blank" class="alert-link" href="http://browsehappy.com">立即升级</a></div><![endif]--><img id="icon4weChat" style="height: 0;width: 0;" data-src="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/img/touch-icon-512.png"><img id="icon4weChat" data-src="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/img/touch-icon-512.png"><div class="global-nav sf-header"><nav class="container nav"><div class="hidden-sm hidden-lg hidden-md"><div class="sf-header__logo sf-header__logo--response"><h1><a></a></h1></div><div class="dropdown m-menu"><a href="javascript:void(0);" id="dLabel" class="visible-xs-block m-toptools"
            data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify"></span><span class="mobile-menu__unreadpoint"></span></a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><li class="mobile-menu__item"><a href="/news">头条</a></li><li class="mobile-menu__item"><a href="/questions/newest">问答</a></li><li class="mobile-menu__item"><a href="/blogs">文章</a></li><li class="mobile-menu__item"><a href="/user/note">笔记</a></li><li class="mobile-menu__item"><a href="/jobs">职位</a></li><li class="mobile-menu__item"><a href="/events">活动</a></li><li class="mobile-menu__item"><a href="/tags">标签</a></li><li class="mobile-menu__item"><a href="/users">榜单</a></li><li class="mobile-menu__item"><a href="/sites">子站</a></li></ul></div><a href="/user/login" class="visible-xs-block pull-right m-ask m-toptools"><span
                     class="glyphicon glyphicon-log-in"></span></a></div><div class="row hidden-xs"><div class="col-sm-9 col-md-7 col-lg-6"><div class="sf-header__logo"><h1><a href="/">SegmentFault</a></h1></div><ul class="menu list-inline pull-left hidden-xs"><li class="menu__item menu__item--new"><a href="/news">头条</a></li><li class="menu__item"><a href="/questions">问答</a></li><li class="menu__item"><a href="/blogs">专栏</a></li><li class="menu__item"><a href="/jobs">职位</a></li><li class="menu__item"><a href="/events">活动</a></li></ul></div><div class="col-sm-3 col-md-5 col-lg-6 text-right"><form action="/search" class="header-search  hidden-sm hidden-xs mr20"><button class="btn btn-link"><span class="sr-only">搜索</span><span class="glyphicon glyphicon-search"></span></button><input id="searchBox" name="q" type="text" placeholder="输入关键字搜索" class="form-control"
@@ -76,7 +76,7 @@
                                         data-id="1010000005704139" data-type="question">收藏
                                 </button>
                                                         <strong id="sideBookmarked">0</strong> 收藏，<strong
-                                    class="no-stress">412</strong> 浏览
+                                    class="no-stress">434</strong> 浏览
                         </li>
                     </ul>
                 </div>
@@ -316,14 +316,14 @@
                                 data-toggle="popover"
                                 data-slug="nizhipeiyule"
                                 data-id="1030000002649826"
-                                src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/user-64.png"
+                                src="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/img/user-64.png"
                                 alt=""></a>
                 </div>
                 <div class="col-md-2 col-sm-2 hidden-xs answer__info--author">
                     <div class=" answer__info--author-warp">
                         <a class="answer__info--author-name" title="你只配娱乐"
                            href="/u/nizhipeiyule">你只配娱乐</a><span
-                                class="answer__info--author-rank">166 声望</span></div>
+                                class="answer__info--author-rank">188 声望</span></div>
                 </div>
             </div>
 
@@ -556,7 +556,7 @@
                                 data-toggle="popover"
                                 data-slug="yangzi1234"
                                 data-id="1030000005704191"
-                                src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/user-64.png"
+                                src="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/img/user-64.png"
                                 alt=""></a>
                 </div>
                 <div class="col-md-2 col-sm-2 hidden-xs answer__info--author">
@@ -657,7 +657,7 @@
 <div class="col-xs-12 col-md-3 side">
     <div class="sfad-sidebar">
       <div class="sfad-item">
-    <ins data-revive-zoneid="1" data-revive-block="1" data-revive-target="_blank" data-revive-ct0='1475833502' data-revive-id="0042ddc520dc895b7aa784fe6f9339bd"></ins>
+    <ins data-revive-zoneid="1" data-revive-block="1" data-revive-target="_blank" data-revive-ct0='1476121009' data-revive-id="0042ddc520dc895b7aa784fe6f9339bd"></ins>
     <button class="close" type="button" aria-hidden="true">&times;</button>
 </div>
 
@@ -691,7 +691,7 @@
                 <ul class="widget-links list-unstyled media">
                     <% _.each(data,function(d){ %>
                     <li class="widget-links__item">
-                        <img class="pull-left pattern pattern-<%= d.id%19 %> mr10" src="https://sf-static.b0.upaiyun.com/v-57ecc802/global/img/pattern/<%= d.id%10 ? d.id%10 : 10 %>.svg" width="32">
+                        <img class="pull-left pattern pattern-<%= d.id%19 %> mr10" src="https://sf-static.b0.upaiyun.com/v-57fb22ae/global/img/pattern/<%= d.id%10 ? d.id%10 : 10 %>.svg" width="32">
                         <div class="media-body">
                             <a target="_blank" class="ellipsis mr0" href="<%- d.url %>"><%= d.name %></a>
                             <p class="mb0">
@@ -742,6 +742,11 @@
                                                                     3 回答
                                                                                             </small>
                                             </li>
+                                    <li class="widget-links__item"><a title="NodeJS爬虫" href="/q/1010000007088375">NodeJS爬虫</a>
+                                                    <small class="text-muted">
+                                                                    1 回答
+                                                                                            </small>
+                                            </li>
                                     <li class="widget-links__item"><a title="cheerio 的问题" href="/q/1010000006021071">cheerio 的问题</a>
                                                     <small class="text-muted">
                                                                     1 回答
@@ -754,12 +759,6 @@
                                                             </small>
                                             </li>
                                     <li class="widget-links__item"><a title="Nodejs 如何过滤掉特殊字符" href="/q/1010000005104842">Nodejs 如何过滤掉特殊字符</a>
-                                            </li>
-                                    <li class="widget-links__item"><a title="nodejs 爬虫遇到形如;&amp;amp;#x5B89;&amp;amp;#x5353;&amp;amp;#x7AEF;的编码如何转换为中文？" href="/q/1010000003500477">nodejs 爬虫遇到形如;&amp;#x5B89;&amp;#x5353;&amp;#x7AEF;的编码如何转换为中文？</a>
-                                                    <small class="text-muted">
-                                                                    1 回答
-                                                                                                     |                                     已解决
-                                                            </small>
                                             </li>
                             </ul>
         </div>
@@ -803,12 +802,12 @@
         <div class="row flex-vertical-center">
         <div class="col-md-12">
             <p class="mb0" style="font-size: 14px; margin-right:50px; font-family: Source Code Pro,Consolas,Menlo,Monaco,Courier New,monospace;">
-                    有人不断向你扔红黑二叉树
+                    空两格 or 空四格，这里有和你一样有趣的开发者
             </p>
             <button class="btn btn-primary SFLogin mr10"
-                    onclick='ga("send", "event", "join button", "clicked", "footer welcome popup");'>左旋
+                    onclick='ga("send", "event", "join button", "clicked", "footer welcome popup");'>投入组织怀抱
             </button>
-            <button class="btn  btn-default  tomorrow">我在根节点</button>
+            <button class="btn  btn-default  tomorrow">我用 Python</button>
         </div>
         
     </div>
@@ -819,7 +818,7 @@
         <div class="row flex-vertical-center">
             <div class="col-sm-12 col-md-8">
                 <p class="mb0">
-                                            Hi，欢迎来到 SegmentFault 技术社区！⊙▽⊙ <br><br>在这里，你可以提出编程相关的疑惑，关注感兴趣的问题，对认可的回答投赞同票；<br>大家会帮你解决编程的问题，和你探讨技术更新，为你的回答投上赞同票。
+                                            你好！看起来你挺喜欢这个内容，但是你还没有注册帐号。 <br><br>当你创建了帐号，我们能准确地追踪你关注的问题，在有新答案或内容的时候收到网页和邮件通知。<br>还能直接向作者咨���更多细节。如果上面的内容有帮助，记得点赞 (♥◠‿◠)ﾉ 表示感谢。
                                                         </p>
 
             </div>
@@ -1001,7 +1000,7 @@
             </dl>
         </div>
         <div class="copyright">
-            Copyright &copy; 2011-2016 SegmentFault. 当前呈现版本 16.09.13<br>
+            Copyright &copy; 2011-2016 SegmentFault. 当前呈现版本 16.10.08<br>
             <a href="http://www.miibeian.gov.cn/" rel="nofollow">浙ICP备 15005796号-2</a> &nbsp;
             <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33010602002000" rel="nofollow">浙公网安备 33010602002000号</a>
         </div>
@@ -1017,7 +1016,7 @@
 
     <div class="qrcodeWraper">
         <a href="/app#qrcode"><span class="glyphicon glyphicon-qrcode"></span></a>
-        <img id="qrcode" class="border" alt="sf-wechat" src="https://sf-static.b0.upaiyun.com/v-57ecc802/page/img/app/appQrcode.png">
+        <img id="qrcode" class="border" alt="sf-wechat" src="https://sf-static.b0.upaiyun.com/v-57fb22ae/page/img/app/appQrcode.png">
 
         <p class="qrcode-text">扫扫下载 App</p>
     </div>
@@ -1106,34 +1105,44 @@
 <script>
     (function (w) {
         w.SF = {
-            staticUrl: "https://sf-static.b0.upaiyun.com/v-57ecc802"
+            staticUrl: "https://sf-static.b0.upaiyun.com/v-57fb22ae"
         };
         w.SF.token = (function () {
-    var _hld6d = 'b'//'v'
-+//'h'
-'a3'+''///*'l'*/'l'
-+'38'//'TNo'
-+//'T'
-'T'+'6'//'WYQ'
-+'w'//'w'
-+//'AN'
-'e93'+'59'//'yuC'
-+'M'//'M'
-+'d5a'//'LJh'
-+'8'//'iH6'
-+//'I'
-'a16'+'d04'//'CJF'
-+//'Uv3'
-'3de'+//'e'
-'ddf'+//'tah'
-'53c'+//'n'
-'98', _yNH = [[5,6],[6,7],[11,12]];
+    var _AnV = ''///*'M7'*/'M7'
++'bb'//'0'
++''///*'ar'*/'ar'
++'f'//'vFN'
++/* 'for'//'for' */''+''///*'w'*/'w'
++//'U'
+'8'+'b'//'eQ'
++/* 'V5q'//'V5q' */''+'0c1'//'D7'
++'ed'//'w'
++'9e'//'P2'
++'3'//'B'
++/* '0nK'//'0nK' */''+'10'//'mZ'
++//'S6'
+'3'+//'Vj'
+'bc3'+'6'//'Mk6'
++'3'//'xG'
++//'2eb'
+'2eb'+''///*'d'*/'d'
++'ef3'//'BJ'
++''///*'gEC'*/'gEC'
++//'bXo'
+'2'+/* 'r8'//'r8' */''+//'G'
+'7'+'9'//'J'
++//'O'
+'447'+''///*'gR'*/'gR'
++'9'//'R'
++'4hx'//'4hx'
++//'Fi'
+'7', _eWje9 = [[21,24],[31,34]];
 
-    for (var i = 0; i < _yNH.length; i ++) {
-        _hld6d = _hld6d.substring(0, _yNH[i][0]) + _hld6d.substring(_yNH[i][1]);
+    for (var i = 0; i < _eWje9.length; i ++) {
+        _AnV = _AnV.substring(0, _eWje9[i][0]) + _AnV.substring(_eWje9[i][1]);
     }
 
-    return _hld6d;
+    return _AnV;
 })();;
     })(window);
 
@@ -1144,8 +1153,8 @@
     };
 </script>
 
-    <script crossorigin src="https://sf-static.b0.upaiyun.com/v-57ecc802/3rd/assets.js"></script>
-    <script crossorigin src="https://sf-static.b0.upaiyun.com/v-57ecc802/qa/script/question.min.js"></script>
+    <script crossorigin src="https://sf-static.b0.upaiyun.com/v-57fb22ae/3rd/assets.js"></script>
+    <script crossorigin src="https://sf-static.b0.upaiyun.com/v-57fb22ae/qa/script/question.min.js"></script>
 
 <script async src="//sponsor.segmentfault.com/asyncjs.php"></script>
 
@@ -1176,7 +1185,7 @@
         'createdTime'
     : 0,
         'now'
-    : 1475833502 });
+    : 1476121009 });
     ga('set', 'dimension1', 'guest');
     ga('send', 'pageview');
 

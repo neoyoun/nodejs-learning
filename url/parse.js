@@ -24,8 +24,8 @@ console.log( url.parse(tartgetURL) );
 *  path: '/neoyoun/nodejs-learning',	 //访问路径
 *  href: 'https://github.com:80/neoyoun/nodejs-learning?name=neoyoun&age=25#part1'' }
 */
-console.log('url.parse("//github.com/neoyoun?age=25&height=176",true,true)');
-console.log(url.parse('//github.com/neoyoun?age=25&height=176',true,true))
+console.log('url.parse("//seo.github.com/neoyoun?age=25&height=176",true,true)');
+console.log(url.parse('//seo.github.com/neoyoun?age=25&height=176',true,true))
 /* protocol: null,       //无协议也可解析
   slashes: true,
   auth: null,

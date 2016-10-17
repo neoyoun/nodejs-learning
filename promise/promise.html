@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>promise</title>
+	<style>
+	body{
+		margin: 0;
+		padding: 0;
+	}
+		.ball{
+			width: 20px;
+			height: 20px;
+			border-radius: 10px;
+			margin-left: 0;
+		}
+		.green{
+			background-color: green;
+		}
+		.blue{
+			background-color: blue;
+		}
+		.red{
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="ball green"></div>
+	<div class="ball blue"></div>
+	<div class="ball red"></div>
+
+	<script>
+		var balls = document.querySelectorAll('.ball');
+		var ball1 = balls[0];
+		var ball2 = balls[1];
+		var ball3 = balls[2];
+
+/*		function animateBall(ball , distance , callback) {
+			var marginLeft = ball.offsetLeft;
+
+			if( marginLeft == distance ){
+				callback && callback()
+			}else{
+				if( marginLeft < distance ){
+					marginLeft++
+				}else{
+					marginLeft--
+				}
+				setTimeout(function () {
+						ball.style.marginLeft = marginLeft + 'px';
+						animateBall(ball , distance , callback)
+					}, 13)	
+			}
+		}*/
+
+		function promiseAnimate(ball,distance) {
+			return new Promise(function (resolve,reject) {
+				function _animate() {
+					var marginLeft = ball.offsetLeft;
+					if(distance<=250){
+						setTimeout(function () {
+							if( marginLeft == distance ){
+								resolve()
+							}else{
+								if( marginLeft < distance ){
+									marginLeft++
+								}else{
+									marginLeft--
+								}
+								ball.style.marginLeft = marginLeft + 'px';
+								_animate();
+							}
+						}, 13)
+					}else{
+						reject(new Error('max distance is 250,you set '+distance))
+					}
+					
+				}
+				_animate();
+			})
+		}
+
+		promiseAnimate(ball1,100)
+			.then(function () {
+				return promiseAnimate(ball2,150)
+			})
+			.then(function () {
+				return promiseAnimate(ball3,120)
+			})
+			.then(function () {
+				return promiseAnimate(ball2,200)
+			})
+			.then(function () {
+				return promiseAnimate(ball3,180)
+			})
+			.then(function () {
+				return promiseAnimate(ball1,140)
+			})
+			.then(function () {
+				return promiseAnimate(ball2,150)
+			})
+			.then(function () {
+				return promiseAnimate(ball3,150)
+			})
+			.then(function () {
+				return promiseAnimate(ball1,150)
+			})
+			.then(function () {
+				return promiseAnimate(ball1,350)
+			})
+		/*animateBall(ball1,100,function () {
+			animateBall(ball2,150,function () {
+				animateBall(ball3,120,function () {
+					animateBall(ball2,200,function () {
+						animateBall(ball3,180,function () {
+							animateBall(ball1,140,function () {
+								animateBall(ball2,150,function () {
+									animateBall(ball3,150,function  () {
+										animateBall(ball1,150)
+									})
+								})
+							})
+						})
+					})
+				})
+			})
+		})*/
+	</script>
+</body>
+</html>
